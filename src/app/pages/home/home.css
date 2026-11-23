@@ -1,0 +1,141 @@
+
+.titulo-foro {
+  font-family: Georgia, serif;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.topic-card {
+  padding: 15px;
+  transition: box-shadow .2s;
+}
+
+.topic-card:hover {
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+}
+
+.topic-title {
+  display: block;
+  color: var(--foro-text);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.topic-title:hover {
+  color: var(--foro-primary);
+}
+
+.status-badge {
+  background: #e7f2fb;
+  color: #315d77;
+  padding: 3px 8px;
+  font-size: 11px;
+  border-radius: 3px;
+}
+
+.status-badge.warning {
+  background: #e8edff;
+  color: #3454a3;
+}
+
+.user-avatar {
+  display: inline-flex;
+  width: 23px;
+  height: 23px;
+  justify-content: center;
+  align-items: center;
+  background: #dce7fa;
+  color: #25416c;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.user-avatar.blue {
+  background: var(--foro-primary);
+  color: white;
+}
+
+.user-role {
+  background: #e9efff;
+  color: #43516b;
+  font-size: 11px;
+  padding: 2px 5px;
+}
+
+.user-role.teacher {
+  background: var(--foro-primary);
+  color: white;
+}
+
+.topic-stats {
+  display: flex;
+  gap: 14px;
+  color: #818898;
+  font-size: 12px;
+}
+
+.sidebar-card {
+  padding: 16px;
+}
+
+.sidebar-card h5 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.rule-item {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.rule-item strong {
+  color: var(--foro-primary);
+}
+
+.subject-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 0;
+}
+
+.subject-item small {
+  margin-left: auto;
+  color: var(--foro-muted);
+  white-space: nowrap;
+}
+
+.subject-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--foro-primary);
+  border-radius: 50%;
+}
+
+.subject-dot.gray { background: #667085; }
+.subject-dot.cyan { background: #08718d; }
+.subject-dot.purple { background: #858294; }
+.subject-dot.light { background: #c6c7d1; }
+
+.activity-card {
+  padding: 15px;
+  background: #e5edff;
+  border-radius: 9px;
+}
+
+.activity-card small {
+  color: #596781;
+}
+
+.activity-card i {
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  color: var(--foro-primary);
+}

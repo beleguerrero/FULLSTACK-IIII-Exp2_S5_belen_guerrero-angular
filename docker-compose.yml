@@ -1,0 +1,14 @@
+
+services:
+  angular-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mi-foro-angular
+    container_name: mi-foro-angular-container
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+    restart: unless-stopped

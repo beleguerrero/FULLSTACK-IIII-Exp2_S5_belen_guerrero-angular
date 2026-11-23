@@ -1,0 +1,56 @@
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --foro-primary: #073cae;
+  --foro-primary-hover: #052f8a;
+  --foro-background: #f5f7fc;
+  --foro-card: #ffffff;
+  --foro-text: #182536;
+  --foro-muted: #727b8c;
+  --foro-border: #e9edf5;
+}
+
+body {
+  background-color: var(--foro-background);
+  color: var(--foro-text);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--foro-primary);
+  border-color: var(--foro-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--foro-primary-hover);
+  border-color: var(--foro-primary-hover);
+}
+
+.foro-card {
+  background: var(--foro-card);
+  border: 1px solid var(--foro-border);
+  border-radius: 9px;
+}
+
+.foro-muted {
+  color: var(--foro-muted);
+}
+
+.foro-badge {
+  background: #e5edff;
+  color: #17469b;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.foro-page {
+  min-height: calc(100vh - 130px);
+}

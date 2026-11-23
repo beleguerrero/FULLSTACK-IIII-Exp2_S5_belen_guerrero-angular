@@ -1,0 +1,51 @@
+
+.logo-box {
+  width: 32px;
+  height: 32px;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.navbar-brand {
+  font-size: 16px;
+  color: var(--foro-text);
+}
+
+.search-box {
+  position: relative;
+  width: min(100%, 410px);
+}
+
+.search-box i {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  color: #818898;
+}
+
+.search-box input {
+  padding-left: 36px;
+  background: #f8f9fc;
+  border: 1px solid #edf0f5;
+  font-size: 13px;
+}
+
+.nav-link {
+  font-size: 13px;
+  color: #525b6c;
+}
+
+.nav-link.active {
+  color: var(--foro-primary);
+  font-weight: 600;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}

@@ -1,0 +1,138 @@
+<div class="modal fade"
+     id="mdlNuevoForo"
+     tabindex="-1"
+     aria-labelledby="mdlNuevoForoLabel"
+     aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+          <h5 class="modal-title" id="mdlNuevoForoLabel">
+            <i class="bi bi-pencil-square text-primary"></i>
+            Publicar nuevo tema
+          </h5>
+
+          <small class="text-secondary">
+            Comparte tus dudas, consultas o aportes académicos.
+          </small>
+        </div>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Cerrar"
+                (click)="limpiarFormulario()">
+        </button>
+
+      </div>
+
+      <form (ngSubmit)="guardarNuevoForo()">
+
+        <div class="modal-body">
+
+          @if (error) {
+            <div class="alert alert-danger">
+              {{ error }}
+            </div>
+          }
+
+          <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+              Título del tema
+            </label>
+
+            <input type="text"
+                   class="form-control"
+                   name="titulo"
+                   [(ngModel)]="titulo"
+                   maxlength="150"
+                   placeholder="Ej. Consulta sobre ejercicio de cálculo"
+                   required>
+
+          </div>
+
+          <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+              Categoría
+            </label>
+
+            <select class="form-select"
+                    name="categoriaId"
+                    [(ngModel)]="categoriaId"
+                    required>
+
+              <option [ngValue]="null" disabled>
+                Selecciona una categoría
+              </option>
+
+              @for (categoria of categorias; track categoria.id) {
+                <option [ngValue]="categoria.id">
+                  {{ categoria.nombre }}
+                </option>
+              }
+
+            </select>
+
+          </div>
+
+          <div class="mb-3">
+
+            <label class="form-label fw-semibold">
+              Contenido
+            </label>
+
+            <textarea class="form-control"
+                      name="contenido"
+                      [(ngModel)]="contenido"
+                      rows="6"
+                      placeholder="Describe tu consulta o aporte académico..."
+                      required>
+            </textarea>
+
+            <small class="text-secondary">
+              Procura entregar suficiente contexto para facilitar
+              las respuestas de otros estudiantes.
+            </small>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button"
+                  class="btn btn-light"
+                  data-bs-dismiss="modal"
+                  (click)="limpiarFormulario()">
+            Cancelar
+          </button>
+
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="guardando">
+
+            @if (guardando) {
+              <span class="spinner-border spinner-border-sm me-1"></span>
+              Publicando...
+            } @else {
+              <i class="bi bi-send me-1"></i>
+              Publicar Tema
+            }
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

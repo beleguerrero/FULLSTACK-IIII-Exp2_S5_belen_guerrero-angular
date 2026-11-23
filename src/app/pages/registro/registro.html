@@ -1,0 +1,114 @@
+
+<main class="auth-container">
+
+  <div class="auth-card foro-card">
+
+    <div class="text-center mb-4">
+
+      <div class="auth-logo">
+        <i class="bi bi-mortarboard-fill"></i>
+      </div>
+
+      <h2>Foro</h2>
+
+      <p class="text-secondary">
+        Crear una cuenta
+      </p>
+
+    </div>
+
+    <form (ngSubmit)="registrar()" #formRegistro="ngForm">
+
+      @if (mensajeError) {
+        <div class="alert alert-danger">
+          {{ mensajeError }}
+        </div>
+      }
+
+      <div class="mb-3">
+        <label class="form-label">Nombre completo</label>
+
+        <input type="text"
+               class="form-control"
+               name="nombre"
+               [(ngModel)]="nombre"
+               required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Usuario</label>
+
+        <input type="text"
+               class="form-control"
+               name="usuario"
+               [(ngModel)]="usuario"
+               required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+
+        <input type="email"
+               class="form-control"
+               name="correo"
+               [(ngModel)]="correo"
+               required
+               email>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+
+        <input type="password"
+               class="form-control"
+               name="password"
+               [(ngModel)]="password"
+               required
+               minlength="6">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Confirmar contraseña</label>
+
+        <input type="password"
+               class="form-control"
+               name="confirmarPassword"
+               [(ngModel)]="confirmarPassword"
+               required>
+      </div>
+
+      <button type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="cargando || formRegistro.invalid">
+
+        @if (cargando) {
+          <span class="spinner-border spinner-border-sm me-1"></span>
+          Registrando...
+        } @else {
+          Crear cuenta
+        }
+
+      </button>
+
+    </form>
+
+    <div class="text-center mt-4">
+      <span class="text-secondary">
+        ¿Ya tienes una cuenta?
+      </span>
+
+      <a routerLink="/login" class="fw-semibold ms-1">
+        Inicia sesión
+      </a>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-4">
+    <a routerLink="/" class="text-secondary small">
+      <i class="bi bi-arrow-left"></i>
+      Volver al inicio
+    </a>
+  </div>
+
+</main>
