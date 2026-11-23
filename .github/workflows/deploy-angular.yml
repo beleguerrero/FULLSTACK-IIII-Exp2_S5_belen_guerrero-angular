@@ -1,0 +1,95 @@
+
+name: Deploy Angular to EC2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-angular-ec2
+  cancel-in-progress: false
+
+jobs:
+  deploy-angular:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    env:
+      AWS_REGION: us-east-1
+      AWS_ACCOUNT_ID: "133749977543"
+      ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      EC2_INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
+      IMAGE_TAG: angular-${{ github.sha }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate configuration
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          [[ -n "$ECR_REPOSITORY" ]] || {
+            echo "ERROR: ECR_REPOSITORY is missing."
+            exit 1
+          }
+
+          [[ -n "$EC2_INSTANCE_ID" ]] || {
+            echo "ERROR: EC2_INSTANCE_ID is missing."
+            exit 1
+          }
+
+          [[ "$EC2_INSTANCE_ID" =~ ^i-[0-9a-f]{8,17}$ ]] || {
+            echo "ERROR: Invalid EC2_INSTANCE_ID."
+            exit 1
+          }
+
+          [[ -f ec2/deploy-to-instance.sh ]] || {
+            echo "ERROR: deploy-to-instance.sh not found."
+            exit 1
+          }
+
+          [[ -f ec2/deploy-angular.sh ]] || {
+            echo "ERROR: deploy-angular.sh not found."
+            exit 1
+          }
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Verify Angular image in ECR
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          aws ecr describe-images \
+            --repository-name "$ECR_REPOSITORY" \
+            --image-ids imageTag="$IMAGE_TAG" \
+            --region "$AWS_REGION"
+
+          echo "Angular image found in ECR."
+
+      - name: Deploy Angular container through SSM
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"
+
+          bash ec2/deploy-to-instance.sh \
+            "$EC2_INSTANCE_ID" \
+            "$AWS_REGION" \
+            angular \
+            ec2/deploy-angular.sh \
+            --image "$IMAGE_URI" \
+            --container-name mi-foro-angular \
+            --host-port 4000 \
+            --container-port 4000
